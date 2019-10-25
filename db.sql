@@ -1,10 +1,12 @@
 CREATE TABLE `ci_menu`.`user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(50) NOT NULL ,
-  `password` VARCHAR(50) NOT NULL ,
+  `password` VARCHAR(100) NOT NULL ,
   `is_admin` BOOLEAN NOT NULL DEFAULT FALSE ,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB;
+
+ALTER TABLE `ci_menu`.`user` ADD UNIQUE `unique_user_name` (`name`);
 
 CREATE TABLE `ci_menu`.`menu` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
