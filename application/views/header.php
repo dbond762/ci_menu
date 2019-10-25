@@ -20,20 +20,23 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto main-nav-txt">
       <?php foreach ($menu as $menu_item): ?>
-        <?php if ($menu_item['parrent'] !== NULL) { continue; } ?>
-        <?php $active_class = current_url() === base_url($menu_item['link']) ? 'active' : ''; ?>
-        <li class="nav-item <?php echo $active_class; ?>">
-          <a class="nav-link" href="<?php echo $menu_item['link']; ?>"><?php echo $menu_item['label']; ?></a>
-        </li>
+        <?php if (empty($menu_item['childrens'])): ?>
+          <?php $active_class = current_url() === base_url($menu_item['link']) ? 'active' : ''; ?>
+          <li class="nav-item <?php echo $active_class; ?>">
+            <a class="nav-link" href="<?php echo $menu_item['link']; ?>"><?php echo $menu_item['label']; ?></a>
+          </li>
+        <?php else: ?>
+          <li class="nav-item dropdown">
+            <?php $id = 'dropdown' . $menu_item['id']; ?>
+            <a class="nav-link dropdown-toggle" href="<?php echo $menu_item['link']; ?>" id="<?php echo $id; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $menu_item['label']; ?></a>
+            <div class="dropdown-menu" aria-labelledby="<?php echo $id; ?>">
+              <?php foreach ($menu_item['childrens'] as $child): ?>
+                <a class="dropdown-item" href="<?php echo $child['link']; ?>"><?php echo $child['label']; ?></a>
+              <?php endforeach; ?>
+            </div>
+          </li>
+        <?php endif; ?>
       <?php endforeach; ?>
-      <!--li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li-->
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2 main-nav-txt" type="text" placeholder="Search" aria-label="Search">
