@@ -30,6 +30,15 @@ class Menu_model extends CI_model {
         return $this->list_to_tree($arr);
     }
 
+    public function update_menu($menu) {
+        foreach ($menu as $menu_item) {
+            $this->db->update( 'menu', $menu_item, array('id' => $menu_item->id) );
+            if ( count( $menu_item->childrens ) > 0 ) {
+                $this->update_menu($menu_item->childrens);
+            }
+        }
+    }
+
     public function get_item($id) {
         $query = $this->db->get_where('menu', array('id' => $id));
         return $query->row_array();

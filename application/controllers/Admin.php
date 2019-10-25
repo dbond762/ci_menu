@@ -22,16 +22,17 @@ class Admin extends CI_controller {
             return;
         }
 
+        $this->form_validation->set_rules('menu', '', 'required');
+
         if ( $this->form_validation->run() === FALSE ) {
-            $this->load->view('admin_page.php', $data);
+            $this->load->view('admin_page', $data);
         } else {
             $menu = json_decode( $this->input->post('menu') );
             if ($menu !== NULL) {
                 $this->menu_model->update_menu($menu);
             }
 
-            $data['menu'] = $menu;
-            $this->load->view('admin_page.php', $data);
+            redirect('admin', 'refresh');
         }
 
     }

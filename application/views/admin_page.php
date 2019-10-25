@@ -42,8 +42,6 @@
                         <button class="menu-edit">i</button>
                         <button class="menu-up">^</button>
                         <button class="menu-down">v</button>
-                        <button class="menu-left"><</button>
-                        <button class="menu-right">></button>
                         <button class="menu-delete">x</button>
                     </div>
                 </li>
@@ -58,8 +56,8 @@
 
     <?php show_menu($menu); ?>
 
-    <?php echo form_open('admin', array('class' => 'hidden')); ?>
-        <input type="hidden" name="menu" value="<?php echo json_encode($menu); ?>">
+    <?php echo form_open('admin', array('class' => 'hidden menuDataForm')); ?>
+        <input type="hidden" class="menuData" name="menu" value="<?php echo html_escape(json_encode($menu)); ?>">
     </form>
 </main>
 
