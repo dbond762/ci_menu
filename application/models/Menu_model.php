@@ -34,17 +34,17 @@ class Menu_model extends CI_model {
         $map   = array();
         $roots = array();
 
-        for ($i = 0; $i < count($list); $i++) {
-            $map[$list[$i]['id']] = $i;
-            $list[$i]['childrens'] = array();
+        for ( $i = 0; $i < count( $list ); $i++ ) {
+            $map[ $list[ $i ]['id'] ] = $i;
+            $list[ $i ]['childrens'] = array();
         }
 
-        for ($i = count($list) - 1; $i >= 0; $i--) {
-            $node = $list[$i];
+        for ( $i = count( $list ) - 1; $i >= 0; $i-- ) {
+            $node = $list[ $i ];
             if ($node['parrent'] !== NULL) {
-                array_unshift($list[$map[$node['parrent']]]['childrens'], $node);
+                array_unshift( $list[ $map[ $node['parrent'] ] ]['childrens'], $node );
             } else {
-                array_unshift($roots, $node);
+                array_unshift( $roots, $node );
             }
         }
 
