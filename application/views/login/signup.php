@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <?php echo form_open('login', array('class' => 'form-signin')); ?>
+    <?php echo form_open('login/signup', array('class' => 'form-signin')); ?>
         <h1 class="h3 mb-3 font-weight-normal">Sign up</h1>
 
         <?php echo validation_errors(); ?>

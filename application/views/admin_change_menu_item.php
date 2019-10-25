@@ -30,43 +30,25 @@
 </nav>
 
 <main role="main" class="container">
-    <h1>Manage menu</h1>
+    <h2>Change menu item</h2>
 
-    <?php function show_menu($menu) { ?>
-        <ul class="menu-list">
-            <?php foreach ($menu as $menu_item) : ?>
-                <li class="menu-list-item">
-                    <div class="menu-item" data-id="<?php echo $menu_item['id']; ?>">
-                        <span class="menu-label"><?php echo $menu_item['label']; ?></span>
-                        <a class="menu-link" href="<?php echo $menu_item['link']; ?>"><?php echo $menu_item['link']; ?></a>
-                        <button class="menu-edit">i</button>
-                        <button class="menu-up">^</button>
-                        <button class="menu-down">v</button>
-                        <button class="menu-left"><</button>
-                        <button class="menu-right">></button>
-                        <button class="menu-delete">x</button>
-                    </div>
-                </li>
-                <?php
-                if ( ! empty( $menu_item['childrens'] ) ) { 
-                    show_menu( $menu_item['childrens'] );
-                }
-                ?>
-            <?php endforeach; ?>
-        </ul>
-    <?php } ?>
-
-    <?php show_menu($menu); ?>
-
-    <?php echo form_open('admin', array('class' => 'hidden')); ?>
-        <input type="hidden" name="menu" value="<?php echo json_encode($menu); ?>">
+    <?php echo form_open('admin/change_menu_item/' . $menu_item['id'], array('class' => '')); ?>
+        <label for="menuLabel">Menu label</label>
+        <input type="text" name="label" id="menuLabel" value="<?php echo $menu_item['label']; ?>" required>
+        <br>
+        <label for="menuLink">Menu link</label>
+        <input type="text" name="link" id="menuLink" value="<?php echo $menu_item['link']; ?>" required>
+        <br>
+        <input type="hidden" name="order" value="<?php echo $menu_item['order']; ?>">
+        <input type="hidden" name="parrent" value="<?php echo $menu_item['parrent']; ?>">
+        <input type="reset" value="Reset">
+        <input type="submit" value="Change">
     </form>
 </main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="<?php echo base_url() . 'static/js/admin.js'; ?>"></script>
 
 </body>
 </html>

@@ -30,6 +30,15 @@ class Menu_model extends CI_model {
         return $this->list_to_tree($arr);
     }
 
+    public function get_item($id) {
+        $query = $this->db->get_where('menu', array('id' => $id));
+        return $query->row_array();
+    }
+
+    public function update_item($menu_item) {
+        $this->db->update('menu', $menu_item, array('id' => $menu_item['id']));
+    }
+
     private function list_to_tree($list) {
         $map   = array();
         $roots = array();

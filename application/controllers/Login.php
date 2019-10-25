@@ -24,7 +24,6 @@ class Login extends CI_controller {
             $this->load->view('login/login', $data);
             $this->load->view('footer');
         } else {
-            echo 'there';
             $name = $this->input->post('username');
             $password = $this->input->post('password');
 
@@ -34,7 +33,7 @@ class Login extends CI_controller {
                     'name' => $user['name'],
                 );
                 $this->session->set_userdata('logged_in', $session_data);
-                $this->load->view('admin_page');
+                $this->load->view('admin_page', $data);
             } else {
                 $data['message'] = 'Invalid Username or Password';
                 $this->load->view('header', $data);
@@ -56,7 +55,6 @@ class Login extends CI_controller {
             $this->load->view('login/signup', $data);
             $this->load->view('footer');
         } else {
-            // todo: on submit sign up form load login page. Should be login/signup.
             $name = $this->input->post('username');
             $password = $this->input->post('password');
             if ($this->user_model->register($name, $password, TRUE)) {
