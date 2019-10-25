@@ -27,6 +27,27 @@ class Menu_model extends CI_model {
         $query = $this->db->order_by('order', 'ASC')->get_where('menu', array('is_draft' => $is_draft));
         $arr = $query->result_array();
 
-        return $arr;
+        return $this->list_to_tree($arr);
+    }
+
+    private function list_to_tree($list) {
+        $map   = array();
+        $roots = array();
+
+        for ($i = 0; $i < count($list); $i++) {
+            $map[$list[$i]['id']] = $i;
+            $list[$i]['childrens'] = array();
+        }
+
+        for ($i = count($list) - 1; $i >= 0; $i--) {
+            $node = $list[$i];
+            if ($node['parrent'] !== NULL) {
+                array_unshift($list[$map[$node['parrent']]]['childrens'], $node);
+            } else {
+                array_unshift($roots, $node);
+            }
+        }
+
+        return $roots;
     }
 }
