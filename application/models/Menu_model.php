@@ -72,6 +72,10 @@ class Menu_model extends CI_model {
         $this->db->insert('menu', $new_item);
     }
 
+    public function delete_menu_item($id) {
+        $this->db->delete('menu', array('id' => $id));
+    }
+
     private function list_to_tree($list) {
         $map   = array();
         $roots = array();

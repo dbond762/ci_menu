@@ -2,16 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let menu = JSON.parse(document.querySelector('.menuData').value);
 
     let nodesCount = node => {
-        let lastNode = node => {
-            if (node.childrens.length === 0) {
-                return node;
-            }
-
-            const lastID = node.childrens.length - 1;
-            return lastNode(node.childrens[lastID]);
-        };
-
-        return lastNode(node).order - node.order + 1;
+        let res = 1;
+        for (let i = 0; i < node.childrens.length; i++) {
+            res += nodesCount(node.childrens[i]);
+        }
+        return res;
     };
 
     let reorder = (node, func) => {
@@ -94,14 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelector('.menuData').value = JSON.stringify(menu);
             document.querySelector('.menuDataForm').submit();
-        });
-    });
-
-    document.querySelectorAll('.menu-delete').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-
-            
         });
     });
 });

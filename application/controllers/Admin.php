@@ -98,4 +98,15 @@ class Admin extends CI_controller {
             redirect('admin', 'refresh');
         }
     }
+
+    public function delete_menu_item($id) {
+        if ( ! $this->session->has_userdata('logged_in') ) {
+            redirect('login', 'refresh');
+            return;
+        }
+
+        $this->menu_model->delete_menu_item($id);
+
+        redirect('admin', 'refresh');
+    }
 }

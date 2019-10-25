@@ -43,7 +43,7 @@
                         <a href="#" class="menu-up">^</a>
                         <a href="#" class="menu-down">v</a>
                         <a href="<?php echo base_url('index.php/admin/add_menu_item/' . $menu_item['id']); ?>" class="menu-add">+</a>
-                        <a href="#" class="menu-delete">x</a>
+                        <a href="<?php echo base_url('index.php/admin/delete_menu_item/' . $menu_item['id']); ?>" class="menu-delete">x</a>
                     </div>
                 </li>
                 <?php
