@@ -15,7 +15,25 @@ class User_model extends CI_model {
         $this->password = password_hash($password, PASSWORD_BCRYPT);
         $this->is_admin = $is_admin;
 
+        $query = $this->db->get_where('user', array('name' => $name));
+        $user = $query->row_array();
+        if ($user !== NULL) {
+            return FALSE;
+        }
+
         $this->db->insert('user', $this);
+        return TRUE;
+    }
+
+    public function login($name, $password) {
+        $query = $this->db->get_where('user', array('name' => $name));
+        $user =  $query->row_array();
+
+        if ( $user !== NULL && password_verify( $password, $user['password'] ) ) {
+            return $user;
+        }
+
+        return NULL;
     }
 
     public function get_by_name($name) {

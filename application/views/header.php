@@ -38,13 +38,7 @@
         <?php endif; ?>
       <?php endforeach; ?>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2 main-nav-txt" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-secondary my-2 my-sm-0 main-nav-txt" type="submit">Search</button>
-    </form>
   </div>
 </nav>
 
 <main role="main" class="container">
-
-<pre><?php echo var_dump($menu); ?></pre>
