@@ -48,6 +48,30 @@ class Menu_model extends CI_model {
         $this->db->update('menu', $menu_item, array('id' => $menu_item['id']));
     }
 
+    public function add_item_after($id, $label, $link) {
+        $query = $this->db->get_where('menu', array('id' => $id));
+        $menu_item = $query->row_array();
+
+        $order = intval($menu_item['order']);
+
+        $query = $this->db->where('order >', $order)->get('menu');
+        $arr = $query->result_array();
+
+        foreach ($arr as $item) {
+            $item['order'] = intval($item['order']) + 1;
+            $this->db->update('menu', $item, array('id' => $item['id']));
+        }
+
+        $new_item = array(
+            'label'   => $label,
+            'link'    => $link,
+            'order'   => intval($order) + 1,
+            'parrent' => $menu_item['parrent'],
+        );
+
+        $this->db->insert('menu', $new_item);
+    }
+
     private function list_to_tree($list) {
         $map   = array();
         $roots = array();

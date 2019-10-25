@@ -75,4 +75,27 @@ class Admin extends CI_controller {
             $this->load->view('admin_page', $data);
         }
     }
+
+    public function add_menu_item($id) {
+        if ( ! $this->session->has_userdata('logged_in') ) {
+            redirect('login', 'refresh');
+            return;
+        }
+
+        $data['menu_item_id'] = $id;
+
+        $this->form_validation->set_rules('label', 'Label', 'required');
+        $this->form_validation->set_rules('link', 'Link', 'required');
+
+        if ( $this->form_validation->run() === FALSE ) {
+            $this->load->view('admin_add_menu_item', $data);
+        } else {
+            $label = $this->input->post('label');
+            $link  = $this->input->post('link');
+
+            $this->menu_model->add_item_after($id, $label, $link);
+            
+            redirect('admin', 'refresh');
+        }
+    }
 }

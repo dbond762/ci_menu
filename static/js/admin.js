@@ -1,13 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     let menu = JSON.parse(document.querySelector('.menuData').value);
 
-    document.querySelectorAll('.menu-edit').forEach(btn => {
-        btn.addEventListener('click', e => {
-            let id = e.target.parentNode.dataset.id;
-            document.location.href = `http://localhost/ci_menu/index.php/admin/change_menu_item/${id}`;
-        });
-    });
-
     let nodesCount = node => {
         let lastNode = node => {
             if (node.childrens.length === 0) {
@@ -30,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.menu-up').forEach(btn => {
         btn.addEventListener('click', e => {
+            e.preventDefault();
             let id = e.target.parentNode.dataset.id;
 
             let findNodes = (menu, id) => {
@@ -67,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.menu-down').forEach(btn => {
         btn.addEventListener('click', e => {
+            e.preventDefault();
             let id = e.target.parentNode.dataset.id;
 
             let findNodes = (menu, id) => {
@@ -99,6 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             document.querySelector('.menuData').value = JSON.stringify(menu);
             document.querySelector('.menuDataForm').submit();
+        });
+    });
+
+    document.querySelectorAll('.menu-delete').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+
+            
         });
     });
 });
